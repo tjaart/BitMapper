@@ -1,0 +1,8 @@
+/home/tjaart/Projects/dotnet/BitMapper/bin/Debug/netcoreapp1.1/BitMapper.deps.json
+/home/tjaart/Projects/dotnet/BitMapper/bin/Debug/netcoreapp1.1/BitMapper.runtimeconfig.json
+/home/tjaart/Projects/dotnet/BitMapper/bin/Debug/netcoreapp1.1/BitMapper.runtimeconfig.dev.json
+/home/tjaart/Projects/dotnet/BitMapper/bin/Debug/netcoreapp1.1/BitMapper.dll
+/home/tjaart/Projects/dotnet/BitMapper/bin/Debug/netcoreapp1.1/BitMapper.pdb
+/home/tjaart/Projects/dotnet/BitMapper/obj/Debug/netcoreapp1.1/BitMapper.AssemblyInfo.cs
+/home/tjaart/Projects/dotnet/BitMapper/obj/Debug/netcoreapp1.1/BitMapper.dll
+/home/tjaart/Projects/dotnet/BitMapper/obj/Debug/netcoreapp1.1/BitMapper.pdb
