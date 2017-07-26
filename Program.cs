@@ -42,9 +42,9 @@ namespace BitMapper
             header.offset = GetSize(header) + GetSize(infoHeader);
 
 
-            
-            
-            
+
+
+
             infoHeader.size = 40;
             infoHeader.bits = 24;
             infoHeader.compression = 0;
@@ -56,24 +56,30 @@ namespace BitMapper
             infoHeader.yresolution = 2835;
             infoHeader.ncolours = 0;
 
-            var imageData = new Pixel[100,100];
-            for (var i =0;i<100;i++) {
-                imageData[i,i] = new Pixel {B = Convert.ToByte(i*2), R = 0, G = 0};
+            var imageData = new Pixel[infoHeader.width, infoHeader.height];
+            for (int y = 0; y < 100; y++)
+            {
+                for (int x = 0; x < 100; x++)
+                {
+                    imageData[x, y] = new Pixel { B = Convert.ToByte(x * 2), R = Convert.ToByte(y * 2), G = 100 };
+                }
             }
-            
+
 
             header.size = GetSize(header) + SizeOf<InfoHeader>() + (SizeOf<Pixel>() * (uint)infoHeader.width * (uint)infoHeader.height);
             var bytes = GetBytes(header).ToList();
             bytes.AddRange(GetBytes(infoHeader));
 
-            for (var i =0;i<100;i++) {
-                for (var j =0;j<100;j++) {
-                     bytes.AddRange(GetBytes(imageData[i,j]));
+            for (var i = 0; i < 100; i++)
+            {
+                for (var j = 0; j < 100; j++)
+                {
+                    bytes.AddRange(GetBytes(imageData[i, j]));
                 }
-                
+
             }
 
-           
+
             File.WriteAllBytes("test.bmp", bytes.ToArray());
             Console.WriteLine("Hello World!");
         }
@@ -84,7 +90,7 @@ namespace BitMapper
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct BitmapHeader
     {
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst=2)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
         public byte[] type;                 /* Magic identifier            */
         public uint size;                       /* File size in bytes          */
         public ushort reserved1, reserved2;
