@@ -41,10 +41,6 @@ namespace BitMapper
             header.type = ASCIIEncoding.ASCII.GetBytes("BM");
             header.offset = GetSize(header) + GetSize(infoHeader);
 
-
-
-
-
             infoHeader.size = 40;
             infoHeader.bits = 24;
             infoHeader.compression = 0;
@@ -57,6 +53,8 @@ namespace BitMapper
             infoHeader.ncolours = 0;
 
             var imageData = new Pixel[infoHeader.width, infoHeader.height];
+
+            // generate image here
             for (int y = 0; y < infoHeader.height; y++)
             {
                 for (int x = 0; x < infoHeader.width; x++)
