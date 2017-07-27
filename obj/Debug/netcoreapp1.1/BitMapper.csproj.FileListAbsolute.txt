@@ -6,3 +6,12 @@
 /home/tjaart/Projects/dotnet/BitMapper/obj/Debug/netcoreapp1.1/BitMapper.AssemblyInfo.cs
 /home/tjaart/Projects/dotnet/BitMapper/obj/Debug/netcoreapp1.1/BitMapper.dll
 /home/tjaart/Projects/dotnet/BitMapper/obj/Debug/netcoreapp1.1/BitMapper.pdb
+C:\TjaartProjects\bin\Debug\netcoreapp1.1\BitMapper.deps.json
+C:\TjaartProjects\bin\Debug\netcoreapp1.1\BitMapper.runtimeconfig.json
+C:\TjaartProjects\bin\Debug\netcoreapp1.1\BitMapper.runtimeconfig.dev.json
+C:\TjaartProjects\bin\Debug\netcoreapp1.1\BitMapper.dll
+C:\TjaartProjects\bin\Debug\netcoreapp1.1\BitMapper.pdb
+C:\TjaartProjects\obj\Debug\netcoreapp1.1\BitMapper.csprojResolveAssemblyReference.cache
+C:\TjaartProjects\obj\Debug\netcoreapp1.1\BitMapper.AssemblyInfo.cs
+C:\TjaartProjects\obj\Debug\netcoreapp1.1\BitMapper.dll
+C:\TjaartProjects\obj\Debug\netcoreapp1.1\BitMapper.pdb

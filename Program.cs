@@ -48,20 +48,31 @@ namespace BitMapper
             infoHeader.size = 40;
             infoHeader.bits = 24;
             infoHeader.compression = 0;
-            infoHeader.height = 100;
+            infoHeader.height = 800;
             infoHeader.planes = 1;
-            infoHeader.width = 100;
+            infoHeader.width = 600;
             infoHeader.imagesize = SizeOf<Pixel>() * (uint)infoHeader.height * (uint)infoHeader.width;
             infoHeader.xresolution = 2835;
             infoHeader.yresolution = 2835;
             infoHeader.ncolours = 0;
 
             var imageData = new Pixel[infoHeader.width, infoHeader.height];
-            for (int y = 0; y < 100; y++)
+            for (int y = 0; y < infoHeader.height; y++)
             {
-                for (int x = 0; x < 100; x++)
+                for (int x = 0; x < infoHeader.width; x++)
                 {
-                    imageData[x, y] = new Pixel { B = Convert.ToByte(x * 2), R = Convert.ToByte(y * 2), G = 100 };
+                    var outValue = Math.Abs(Math.Sin(x) * 100);
+                    //if (outValue > 255)
+                    //{
+                    //    outValue = 255;
+                    //}
+                    byte val = 255;
+                    if (x%2 == 0)
+                    {
+                        val =0;
+                    }
+
+                    imageData[x, y] = new Pixel { B = val, R = val, G = val };
                 }
             }
 
@@ -70,9 +81,9 @@ namespace BitMapper
             var bytes = GetBytes(header).ToList();
             bytes.AddRange(GetBytes(infoHeader));
 
-            for (var i = 0; i < 100; i++)
+            for (var i = 0; i < infoHeader.width; i++)
             {
-                for (var j = 0; j < 100; j++)
+                for (var j = 0; j < infoHeader.height; j++)
                 {
                     bytes.AddRange(GetBytes(imageData[i, j]));
                 }
@@ -81,7 +92,7 @@ namespace BitMapper
 
 
             File.WriteAllBytes("test.bmp", bytes.ToArray());
-            Console.WriteLine("Hello World!");
+           
         }
     }
 
