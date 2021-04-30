@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using static BitMapper.ByteStuff;
@@ -7,66 +8,60 @@ namespace BitMapper
 {
     public class BitmapCreator
     {
+        public int PixelWidth { get; }
+        public int PixelHeight { get; }
+        private BitmapHeader _header;
+        private List<byte> _headerData;
+        private Pixel[,] _imageData;
+
         public BitmapCreator(int pixelWidth, int pixelHeight)
         {
+            PixelWidth = pixelWidth;
+            PixelHeight = pixelHeight;
+            InitHeader();
             
+            _imageData = new Pixel[PixelHeight, PixelWidth];
         }
-        
-        public byte[] Create()
-        {
-            BitmapHeader header = new BitmapHeader();
-            header.reserved1 = 0;
-            header.reserved2 = 0;
 
+        private void InitHeader()
+        {
+            _header = new BitmapHeader();
+            _header.reserved1 = 0;
+            _header.reserved2 = 0;
             var infoHeader = new InfoHeader();
 
-            header.type = Encoding.ASCII.GetBytes("BM");
-            header.offset = GetSize(header) + GetSize(infoHeader);
-
+            _header.type = Encoding.ASCII.GetBytes("BM");
+            _header.offset = GetSize(_header) + GetSize(infoHeader);
             infoHeader.size = 40;
             infoHeader.bits = 24;
             infoHeader.compression = 0;
-            infoHeader.height = 600;
+            infoHeader.height = PixelHeight;
             infoHeader.planes = 1;
-            infoHeader.width = 800;
+            infoHeader.width = PixelWidth;
             infoHeader.imagesize = SizeOf<Pixel>() * (uint) infoHeader.height * (uint) infoHeader.width;
             infoHeader.xresolution = 2835;
             infoHeader.yresolution = 2835;
             infoHeader.ncolours = 0;
-
-            var imageData = new Pixel[infoHeader.height, infoHeader.width];
-
-            // generate image here
-            for (int y = 0; y < infoHeader.height; y++)
-            {
-                for (int x = 0; x < infoHeader.width; x++)
-                {
-                    var outValue = Math.Abs(Math.Sin(x) * 100);
-                    //if (outValue > 255)
-                    //{
-                    //    outValue = 255;
-                    //}
-                    byte val = 255;
-                    if (x % 2 == 0)
-                    {
-                        val = 0;
-                    }
-
-                    imageData[y, x] = new Pixel {B = val, R = 255, G = val};
-                }
-            }
-
-            header.size = GetSize(header) + SizeOf<InfoHeader>() + (SizeOf<Pixel>() * (uint) infoHeader.width * (uint) infoHeader.height);
-            var bytes = GetBytes(header).ToList();
-            bytes.AddRange(GetBytes(infoHeader));
             
-            for (var j = 0; j < infoHeader.height; j++)
-            for (var i = 0; i < infoHeader.width; i++)
-            {
-                bytes.AddRange(GetBytes(imageData[j, i]));
-            }
+            _header.size = GetSize(_header) + SizeOf<InfoHeader>() + (SizeOf<Pixel>() * (uint) PixelWidth * (uint) PixelHeight);
+            _headerData = GetBytes(_header).ToList();
+            _headerData.AddRange(GetBytes(infoHeader));
+        }
 
-            return bytes.ToArray();
+        public void Draw(Action<Pixel[,]> drawAction) => drawAction(_imageData);
+
+        public byte[] ToBytes()
+        {
+            var finalImage = new List<byte>();
+            
+            finalImage.AddRange(_headerData);
+            
+            for (var j = 0; j < PixelHeight; j++)
+            for (var i = 0; i < PixelWidth; i++)
+            {
+                finalImage.AddRange(GetBytes(_imageData[j, i]));
+            }
+            return finalImage.ToArray();
         }
     }
 }
