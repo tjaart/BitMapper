@@ -87,39 +87,4 @@ namespace BitMapper
             File.WriteAllBytes("test.bmp", bytes.ToArray());
         }
     }
-
-
-    [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct BitmapHeader
-    {
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
-        public byte[] type; /* Magic identifier            */
-
-        public uint size; /* File size in bytes          */
-        public ushort reserved1, reserved2;
-        public uint offset; /* Offset to image data, bytes */
-    }
-
-    [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct InfoHeader
-    {
-        public uint size; /* Header size in bytes      */
-        public int width, height; /* Width and height of image */
-        public ushort planes; /* Number of colour planes   */
-        public ushort bits; /* Bits per pixel            */
-        public uint compression; /* Compression type          */
-        public uint imagesize; /* Image size in bytes       */
-        public int xresolution, yresolution; /* Pixels per meter          */
-        public uint ncolours; /* Number of colours         */
-        public uint importantcolours; /* Important colours         */
-    }
-
-    [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct Pixel
-    {
-        public byte B;
-
-        public byte G;
-        public byte R;
-    }
 }
