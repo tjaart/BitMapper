@@ -6,15 +6,15 @@ using static BitMapper.ByteStuff;
 
 namespace BitMapper
 {
-    public class BitmapCreator
+    public class BitmapImage
     {
         public int PixelWidth { get; }
         public int PixelHeight { get; }
         private BitmapHeader _header;
         private List<byte> _headerData;
-        private Pixel[,] _imageData;
+        private readonly Pixel[,] _imageData;
 
-        public BitmapCreator(int pixelWidth, int pixelHeight)
+        public BitmapImage(int pixelWidth, int pixelHeight)
         {
             PixelWidth = pixelWidth;
             PixelHeight = pixelHeight;
@@ -25,9 +25,7 @@ namespace BitMapper
 
         private void InitHeader()
         {
-            _header = new BitmapHeader();
-            _header.reserved1 = 0;
-            _header.reserved2 = 0;
+            _header = new BitmapHeader {reserved1 = 0, reserved2 = 0};
             var infoHeader = new InfoHeader();
 
             _header.type = Encoding.ASCII.GetBytes("BM");

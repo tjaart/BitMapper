@@ -10,7 +10,7 @@ namespace BitMapper
     {
         static void Main(string[] args)
         {
-            var bmp = new BitmapCreator(800, 600);
+            var bmp = new BitmapImage(800, 600);
             bmp.Draw(pixels =>
             {
                 // generate image here
@@ -34,16 +34,18 @@ namespace BitMapper
             });
 
             bmp.Draw(DrawRect(50, 50, 200, 100, Pixel.Create(0, 200, 0), 50));
-            bmp.Draw(DrawRect(20, 30, 200, 100, Pixel.Create(0, 0, 0), 75));
+            bmp.Draw(DrawRect(20, 30, 200, 2000, Pixel.Create(0, 0, 0), 75));
 
             File.WriteAllBytes("test.bmp", bmp.ToBytes());
         }
 
-        private static Action<Pixel[,]> DrawRect(int x, int y, int width, int height, Pixel color, int opacity=100)
-        {
-            return pixels =>
+        private static Action<Pixel[,]> DrawRect(int x, int y, int width, int height, Pixel color, int opacity=100) =>
+            pixels =>
             {
-                for (int h = y-1; h < y+height; h++)
+                var endY = y + height;
+                var maxY = pixels.GetLength(0) -1;
+                endY = endY >= maxY ? maxY : endY;
+                for (int h = y-1; h <= endY; h++)
                 {
                     for (int w = x - 1; w < x + width; w++)
                     {
@@ -52,6 +54,5 @@ namespace BitMapper
                 }
                 
             };
-        }
     }
 }
