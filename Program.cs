@@ -26,14 +26,32 @@ namespace BitMapper
 
                         accumulator++;
                         byte val = accumulator;
-                        
 
-                        pixels[y, x] = Pixel.Create((byte) ((x * y)/255),val,(byte) (val - accumulator));
+
+                        pixels[y, x] = Pixel.Create((byte) ((x * y) / 255), val, (byte) (val - accumulator));
                     }
                 }
             });
-            
+
+            bmp.Draw(DrawRect(50, 50, 200, 100, Pixel.Create(0, 200, 0), 50));
+            bmp.Draw(DrawRect(20, 30, 200, 100, Pixel.Create(0, 0, 0), 75));
+
             File.WriteAllBytes("test.bmp", bmp.ToBytes());
+        }
+
+        private static Action<Pixel[,]> DrawRect(int x, int y, int width, int height, Pixel color, int opacity=100)
+        {
+            return pixels =>
+            {
+                for (int h = y-1; h < y+height; h++)
+                {
+                    for (int w = x - 1; w < x + width; w++)
+                    {
+                        pixels[h,w] = color.Blend(pixels[h,w], opacity);
+                    }    
+                }
+                
+            };
         }
     }
 }
