@@ -11,30 +11,30 @@ namespace BitMapper
         static void Main(string[] args)
         {
             var bmp = new BitmapImage(800, 600);
-            bmp.Draw(pixels =>
-            {
-                // generate image here
-                for (int y = 0; y < bmp.PixelHeight; y++)
-                {
-                    byte accumulator = 0;
-                    for (int x = 0; x < bmp.PixelWidth; x++)
-                    {
-                        if (accumulator == 255)
-                        {
-                            accumulator = 0;
-                        }
+            // bmp.Draw(pixels =>
+            // {
+            //     // generate image here
+            //     for (int y = 0; y < bmp.PixelHeight; y++)
+            //     {
+            //         byte accumulator = 0;
+            //         for (int x = 0; x < bmp.PixelWidth; x++)
+            //         {
+            //             if (accumulator == 255)
+            //             {
+            //                 accumulator = 0;
+            //             }
+            //
+            //             accumulator++;
+            //             byte val = accumulator;
+            //
+            //
+            //             pixels[y, x] = Pixel.Create((byte) ((x * y) / 255), val, (byte) (val - accumulator));
+            //         }
+            //     }
+            // });
 
-                        accumulator++;
-                        byte val = accumulator;
-
-
-                        pixels[y, x] = Pixel.Create((byte) ((x * y) / 255), val, (byte) (val - accumulator));
-                    }
-                }
-            });
-
-            bmp.Draw(DrawRect(50, 50, 200, 100, Pixel.Create(0, 200, 0), 50));
-            bmp.Draw(DrawRect(20, 30, 200, 2000, Pixel.Create(0, 0, 0), 75));
+            //bmp.Draw(DrawRect(50, 50, 200, 100, Pixel.Create(0, 200, 0), 50));
+            bmp.Draw(DrawRect(400, 20, 20, 20, Pixel.Create(0, 0, 255), 0));
 
             File.WriteAllBytes("test.bmp", bmp.ToBytes());
         }

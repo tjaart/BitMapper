@@ -53,8 +53,8 @@ namespace BitMapper
             var finalImage = new List<byte>();
             
             finalImage.AddRange(_headerData);
-            
-            for (var j = 0; j < PixelHeight; j++)
+            for (var j = PixelHeight -1; j >=0 ; j--)
+           // for (var j = 0; j < PixelHeight; j++)
             for (var i = 0; i < PixelWidth; i++)
             {
                 finalImage.AddRange(GetBytes(_imageData[j, i]));
